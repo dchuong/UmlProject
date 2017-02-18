@@ -1,4 +1,10 @@
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import com.github.javaparser.JavaParser;
+import com.github.javaparser.ast.CompilationUnit;
+import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+
 public class UmlProject {
 	public static void main(String[] args) {
         String Input = null, Output = null;
@@ -15,7 +21,19 @@ public class UmlProject {
         File[] files = new File(Input).listFiles();
         
         for (File oneFile : files) {
-        	System.out.println(oneFile);
+        	if (oneFile.getName().contains(".java")) {
+            	System.out.println(oneFile.getName());
+            	try {
+					FileReader reader = new FileReader(oneFile);
+		
+			
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+            	
+        	}
+        	
         }
     }
 }
