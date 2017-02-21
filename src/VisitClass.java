@@ -1,6 +1,7 @@
 import java.util.List;
 
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.expr.SimpleName;
 import com.github.javaparser.ast.type.ClassOrInterfaceType;
 import com.github.javaparser.ast.visitor.*;
@@ -21,7 +22,9 @@ public class VisitClass extends VoidVisitorAdapter{
 	public SimpleName className;
 	public List<ClassOrInterfaceType> extendList;
 	public boolean checkInterface;
-	public List variables;
+	public List<VariableDeclarator> variables;
+	
+	@SuppressWarnings("unchecked")
 	public void visit(ClassOrInterfaceDeclaration n, Object obj ) {
 		
 		className = n.getName();
@@ -32,10 +35,9 @@ public class VisitClass extends VoidVisitorAdapter{
 		// visit fields
 		VisitMethod vm = new VisitMethod();
 		vm.visit(n, obj);
-		variables = vm.variables;
+
 		
-		
-		//System.out.print(className.toString());
+			
 		
 		
 		if (!n.isInterface()) {
@@ -47,5 +49,9 @@ public class VisitClass extends VoidVisitorAdapter{
 				}
 			}
 		}
+	}
+	
+	public List<VariableDeclarator> getVariables () {
+		return this.variables;
 	}
 }

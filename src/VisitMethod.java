@@ -9,7 +9,7 @@ import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 
 public class VisitMethod extends VoidVisitorAdapter {
-	public List variables;
+	public List<VariableDeclarator> variables;
 	public EnumSet<Modifier> mod;
 	/* from JavaParser voidVisitor
 	   public void visit(final MethodDeclaration n, final A arg) {
@@ -26,8 +26,9 @@ public class VisitMethod extends VoidVisitorAdapter {
 	 */
 	
 	public void visit(MethodDeclaration n, Object obj) {
-		
+		System.out.println("method declaration");	
 	}
+	
 	/* from JavaParser voidVisitor
 	public void visit(final FieldDeclaration n, final A arg) {
         n.getVariables().forEach( p -> p.accept(this, arg));
@@ -38,8 +39,12 @@ public class VisitMethod extends VoidVisitorAdapter {
 	public void visit(FieldDeclaration n, Object obj) {
 		variables = n.getVariables();
 		mod = n.getModifiers();
-		
-		System.out.print(n.toString());
 	
+		//System.out.print(n.toString());
+		for (VariableDeclarator v : variables) {
+			System.out.println(v.toString() +" " +  v.getType());
+		}
 	}
+	
+
 }

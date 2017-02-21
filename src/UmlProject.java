@@ -8,6 +8,7 @@ import java.util.List;
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.VariableDeclarator;
 
 public class UmlProject {
 	public static void main(String[] args) throws FileNotFoundException {
@@ -31,7 +32,7 @@ public class UmlProject {
 			
 				
 				String interCode = parser(vc);
-				System.out.println(interCode);
+				//System.out.println(interCode);
 				//System.out.println(comUnit.toString() + "\n\n");
 					
 		
