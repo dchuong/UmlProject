@@ -1,12 +1,16 @@
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.github.javaparser.JavaParser;
 import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 
 public class UmlProject {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
         String Input = null, Output = null;
         if (args.length == 2) {
         	try {
@@ -17,23 +21,31 @@ public class UmlProject {
         	}
         }
         
-        System.out.println(Input + " " + Output + "\n");
         File[] files = new File(Input).listFiles();
-        
+        List<Object> bundle = new ArrayList<Object>();
         for (File oneFile : files) {
         	if (oneFile.getName().contains(".java")) {
-            	System.out.println(oneFile.getName());
-            	try {
-					FileReader reader = new FileReader(oneFile);
-		
+				CompilationUnit comUnit = JavaParser.parse(oneFile);
+				VisitClass vc = new VisitClass();
+				vc.visit(comUnit, null);
 			
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-            	
+				
+				String interCode = parser(vc);
+				System.out.println(interCode);
+				//System.out.println(comUnit.toString() + "\n\n");
+					
+		
         	}
-        	
         }
     }
-}
+	
+	public static String parser(VisitClass vc) {
+		String fullText = "";
+		if (vc.checkInterface)
+			fullText += "Interface " + vc.className;
+		else
+			fullText += "class " + vc.className; 
+		
+		return fullText;
+	}
+ }
