@@ -1,9 +1,11 @@
+import java.util.ArrayList;
 import java.util.List;
 
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
+import com.github.javaparser.ast.body.FieldDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
 import com.github.javaparser.ast.expr.SimpleName;
-import com.github.javaparser.ast.type.ClassOrInterfaceType;
+import com.github.javaparser.ast.type.*;
 import com.github.javaparser.ast.visitor.*;
 
 /* from JavaParser
@@ -19,30 +21,20 @@ public void visit(final ClassOrInterfaceDeclaration n, final A arg) {
  */
 public class VisitClass extends VoidVisitorAdapter{
 
-	public SimpleName className;
-	public List<ClassOrInterfaceType> extendList;
-	public boolean checkInterface;
-	public List<VariableDeclarator> variables;
-	public List <VariableObj> allVar;
-	@SuppressWarnings("unchecked")
+	public List<ClassObj> allClassObj =  new ArrayList<ClassObj>();
+
+	
 	public void visit(ClassOrInterfaceDeclaration n, Object obj ) {
+		ClassObj temp = new ClassObj(n.getName());
+		temp.checkInterface = n.isInterface();
 		
-		className = n.getName();
-		extendList = n.getExtendedTypes();
-		checkInterface = n.isInterface();
-		
-		
-		// visit fields
 		VisitMethod vm = new VisitMethod();
 		vm.visit(n, obj);
-		this.allVar = vm.getAllVar();
-	
+		temp.variables = vm.variables;
 		
-		
-		
+		allClassObj.add(temp);
 		
 		if (!n.isInterface()) {
-		
 			if(!n.getImplementedTypes().isEmpty()) {
 				for (int i = 0; i < n.getImplementedTypes().size(); i++ ) {
 					String test = n.getImplementedTypes().get(i).toString();
@@ -50,9 +42,7 @@ public class VisitClass extends VoidVisitorAdapter{
 				}
 			}
 		}
-	}
-	
-	public List<VariableDeclarator> getVariables () {
-		return this.variables;
+		
+		
 	}
 }

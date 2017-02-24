@@ -10,8 +10,11 @@ import com.github.javaparser.ast.CompilationUnit;
 import com.github.javaparser.ast.body.ClassOrInterfaceDeclaration;
 import com.github.javaparser.ast.body.VariableDeclarator;
 
+
 public class UmlProject {
+	
 	public static void main(String[] args) throws FileNotFoundException {
+		 
         String Input = null, Output = null;
         if (args.length == 2) {
         	try {
@@ -29,27 +32,26 @@ public class UmlProject {
 				CompilationUnit comUnit = JavaParser.parse(oneFile);
 				VisitClass vc = new VisitClass();
 				vc.visit(comUnit, null);
-				
-				for (VariableObj var: vc.allVar) {
-					System.out.println(var.mod+ " " + var.name +" " +  var.type);
-				}
+			
 				String interCode = parser(vc);
 				//System.out.println(interCode);
 				//System.out.println(comUnit.toString() + "\n\n");
 					
         	}
         }
-        
-        
     }
 	
+	
 	public static String parser(VisitClass vc) {
-		String fullText = "";
-		if (vc.checkInterface)
-			fullText += "Interface " + vc.className;
-		else
-			fullText += "class " + vc.className; 
-		
-		return fullText;
+		String parser = "";
+		for (ClassObj a: vc.allClassObj) {
+			System.out.println(a.name);
+			for (VariableObj var: a.variables) {
+				System.out.println(var.mod+ " " + var.name +" " +  var.type);
+			}
+		}
+		return parser;
 	}
+
+	
  }
