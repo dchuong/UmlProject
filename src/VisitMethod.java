@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
@@ -11,6 +12,11 @@ import com.github.javaparser.ast.visitor.VoidVisitorAdapter;
 public class VisitMethod extends VoidVisitorAdapter {
 	public List<VariableDeclarator> variables;
 	public EnumSet<Modifier> mod;
+	public 	List <VariableObj> allVar;
+	
+	public VisitMethod() {
+		allVar = new ArrayList<VariableObj>();
+	}
 	/* from JavaParser voidVisitor
 	   public void visit(final MethodDeclaration n, final A arg) {
 	        n.getBody().ifPresent( l -> l.accept(this, arg));
@@ -25,6 +31,7 @@ public class VisitMethod extends VoidVisitorAdapter {
 	    only include public methods - ignore private, package, protected 
 	 */
 	
+
 	public void visit(MethodDeclaration n, Object obj) {
 		System.out.println("method declaration");	
 	}
@@ -36,15 +43,35 @@ public class VisitMethod extends VoidVisitorAdapter {
         n.getComment().ifPresent( l -> l.accept(this, arg));
     }
     */
+	
 	public void visit(FieldDeclaration n, Object obj) {
 		variables = n.getVariables();
 		mod = n.getModifiers();
 	
+		
+
 		//System.out.print(n.toString());
 		for (VariableDeclarator v : variables) {
-			System.out.println(v.toString() +" " +  v.getType());
+			//get the info for each variable
+			
+			VariableObj temp = new VariableObj();
+			temp.mod = mod.toString();
+			temp.name = v.toString();
+			temp.type = v.getType().toString();
+			allVar.add(temp);
+		
+			
 		}
+		//System.out.println(allVar.toString());
+		
+		/*
+		for (VariableObj var: allVar) {
+			System.out.println(var.mod+ " " + var.name +" " +  var.type);
+		}
+		*/
 	}
 	
-
+	public List <VariableObj> getAllVar () {
+		return this.allVar;
+	}
 }

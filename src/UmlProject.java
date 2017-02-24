@@ -29,15 +29,18 @@ public class UmlProject {
 				CompilationUnit comUnit = JavaParser.parse(oneFile);
 				VisitClass vc = new VisitClass();
 				vc.visit(comUnit, null);
-			
 				
+				for (VariableObj var: vc.allVar) {
+					System.out.println(var.mod+ " " + var.name +" " +  var.type);
+				}
 				String interCode = parser(vc);
 				//System.out.println(interCode);
 				//System.out.println(comUnit.toString() + "\n\n");
 					
-		
         	}
         }
+        
+        
     }
 	
 	public static String parser(VisitClass vc) {

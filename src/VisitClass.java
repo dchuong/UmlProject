@@ -23,7 +23,7 @@ public class VisitClass extends VoidVisitorAdapter{
 	public List<ClassOrInterfaceType> extendList;
 	public boolean checkInterface;
 	public List<VariableDeclarator> variables;
-	
+	public List <VariableObj> allVar;
 	@SuppressWarnings("unchecked")
 	public void visit(ClassOrInterfaceDeclaration n, Object obj ) {
 		
@@ -35,9 +35,10 @@ public class VisitClass extends VoidVisitorAdapter{
 		// visit fields
 		VisitMethod vm = new VisitMethod();
 		vm.visit(n, obj);
-
+		this.allVar = vm.getAllVar();
+	
 		
-			
+		
 		
 		
 		if (!n.isInterface()) {
