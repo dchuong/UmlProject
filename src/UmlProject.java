@@ -44,6 +44,7 @@ public class UmlProject {
 	
 	public static String parser(VisitClass vc) {
 		String parser = "";
+		
 		for (ClassObj a: vc.allClassObj) {
 			System.out.println(a.name);
 			for (VariableObj var: a.variables) {
