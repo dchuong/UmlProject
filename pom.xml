@@ -21,6 +21,11 @@
   		<artifactId>javaparser-core</artifactId>
   		<version>3.0.1</version>
   	</dependency>
+  	<dependency>
+  		<groupId>com.github.jeluard</groupId>
+  		<artifactId>plantuml-maven-plugin</artifactId>
+  		<version>1.2</version>
+  	</dependency>
   </dependencies>
   <artifactId>my-project</artifactId>
   <groupId>com.derrick</groupId>
