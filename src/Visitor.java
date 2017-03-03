@@ -65,6 +65,7 @@ public class Visitor{
 				vc.visit(n, obj);
 				newone.constructorList = vc.constructorList;
 				
+				System.out.println("Class : " + n.getName().toString());
 				VisitVarDeclarExpr vvde = new VisitVarDeclarExpr();
 				vvde.visit(n,obj);
 				newone.variableDecList = vvde.variableDecList;

@@ -12,7 +12,7 @@ public class VisitVarDeclarExpr extends VoidVisitorAdapter {
 	public void visit (VariableDeclarationExpr n, Object obj){
 		for (VariableDeclarator var : n.getVariables()) {
 			variableDecList.add(var.getType().toString());
-			
+			System.out.println(var.getType().toString());
 		}
 	}
 }

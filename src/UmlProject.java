@@ -87,10 +87,10 @@ public class UmlProject {
 	    		for (ClassObj c2: visitor.allClassObj) {
 	    			String className = c2.name.toString();
 	    			
-    				//System.out.println(className + " "+ varName);
+    			//	System.out.println("@ "+ className + " "+ varName);
     				if (!c1.checkInterface && className.equals(varName)) {
-    					if (!c2.addVariable.contains(c1.name.toString())) {
-    						c2.addVariable.add(c1.name.toString());
+    					if (!c2.addMethods.contains(c1.name.toString())) {
+    						c2.addMethods.add(c1.name.toString());
     					}
     				}
     			}
@@ -234,10 +234,12 @@ public class UmlProject {
 		// need to fix method setter and getter 
 		for (ClassObj c: v.allClassObj) {
 			//dotted line with black arrow ..>
-		
+			//add methods and variable 
 			for (String name: c.addMethods) {
+				if (c.checkInterface) {
 				//System.out.println("string class" +p.a + " class name " + c.name.toString());
-				t += name+ "..>" + c.name.toString() + ":uses\n";
+					t += name+ "..>" + c.name.toString() + ":uses\n";
+				}
 			}
 		
 			for (String name: c.addConstructors) {
@@ -246,21 +248,14 @@ public class UmlProject {
 					t += name+ "..>" + c.name.toString() + "\n";
 				}
 			}
-			
-			for (String name: c.addVariable) {
-				if (c.checkInterface){
-					t += name+ "..>" + c.name.toString() + "\n";
-				}
-			}
+
+		
 			//System.out.println(c.checkInterface + " " +  c.name.toString());
 			for(String name : c.implementList) {
-			
-				if(c.checkInterface)
-					System.out.println(name + " "+ c.name.toString());
+					//System.out.println(name + " "+ c.name.toString());
 					t +=  name + "<|.. " +  c.name.toString()+"\n";
-				
 			}
-		
+	
 		}
 		
 		//solid line with triangle arrow
