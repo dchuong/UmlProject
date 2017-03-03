@@ -81,7 +81,22 @@ public class UmlProject {
         	}
         }
         
-
+        //variable line
+        for(ClassObj c1 : visitor.allClassObj) {
+        	for (String varName: c1.variableDecList ) {
+	    		for (ClassObj c2: visitor.allClassObj) {
+	    			String className = c2.name.toString();
+	    			
+    				//System.out.println(className + " "+ varName);
+    				if (!c1.checkInterface && className.equals(varName)) {
+    					if (!c2.addVariable.contains(c1.name.toString())) {
+    						c2.addVariable.add(c1.name.toString());
+    					}
+    				}
+    			}
+    				
+    		}
+        }
         //check for java setters and getter
         MethodObj removeMethod;
         for(ClassObj c1 : visitor.allClassObj) {
@@ -224,13 +239,24 @@ public class UmlProject {
 				//System.out.println("string class" +p.a + " class name " + c.name.toString());
 				t += name+ "..>" + c.name.toString() + ":uses\n";
 			}
+		
 			for (String name: c.addConstructors) {
-				t += name+ "..>" + c.name.toString() + "\n";
+			//	System.out.println(name + " " + c.name.toString());
+				if (c.checkInterface){
+					t += name+ "..>" + c.name.toString() + "\n";
+				}
+			}
+			
+			for (String name: c.addVariable) {
+				if (c.checkInterface){
+					t += name+ "..>" + c.name.toString() + "\n";
+				}
 			}
 			//System.out.println(c.checkInterface + " " +  c.name.toString());
 			for(String name : c.implementList) {
 			
-			
+				if(c.checkInterface)
+					System.out.println(name + " "+ c.name.toString());
 					t +=  name + "<|.. " +  c.name.toString()+"\n";
 				
 			}
@@ -252,6 +278,7 @@ public class UmlProject {
 	public static boolean checkIfInterface(List<ClassObj> all, String name) {
 		boolean check = false;
 		for(ClassObj c: all) {
+			//System.out.println(name + " "+ c.name);
 			if (name.equalsIgnoreCase(c.name.toString())) 
 				
 				check = c.checkInterface;

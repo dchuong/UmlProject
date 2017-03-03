@@ -51,6 +51,10 @@ public class ClassObj {
 	
 	public List<String> addMethods = new ArrayList<String>();
 	public List<String> addConstructors = new ArrayList<String>();
+	public List<String> addVariable = new ArrayList<String>();
+	//variable declaration
+	public List<String> variableDecList = new ArrayList<String>();
+	
 	public ClassObj(SimpleName name) {
 		this.name = name;
 	}

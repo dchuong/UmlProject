@@ -64,7 +64,10 @@ public class Visitor{
 				VisitConstructor vc = new VisitConstructor();
 				vc.visit(n, obj);
 				newone.constructorList = vc.constructorList;
-		
+				
+				VisitVarDeclarExpr vvde = new VisitVarDeclarExpr();
+				vvde.visit(n,obj);
+				newone.variableDecList = vvde.variableDecList;
 				allClassObj.add(newone);	
 			}
 		}
