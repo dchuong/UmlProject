@@ -14,10 +14,8 @@ import com.github.javaparser.ast.visitor.*;
 public class Visitor{
 	
 	public static List<ClassObj> allClassObj;
-	public static int classnum;
 	
-	public Visitor (int n ) {
-		classnum = 0;
+	public Visitor () {
 		allClassObj =  new ArrayList<ClassObj>();
 	}
 	
@@ -65,7 +63,7 @@ public class Visitor{
 				vc.visit(n, obj);
 				newone.constructorList = vc.constructorList;
 				
-				System.out.println("Class : " + n.getName().toString());
+				//System.out.println("Class : " + n.getName().toString());
 				VisitVarDeclarExpr vvde = new VisitVarDeclarExpr();
 				vvde.visit(n,obj);
 				newone.variableDecList = vvde.variableDecList;

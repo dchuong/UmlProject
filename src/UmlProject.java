@@ -36,7 +36,8 @@ public class UmlProject {
         File[] files = new File(Input).listFiles();
 
         
-        Visitor visitor = new Visitor(0);
+        Visitor visitor = new Visitor();
+        
         for (File oneFile : files) {
         	if (oneFile.getName().contains(".java")) {
 				CompilationUnit comUnit = JavaParser.parse(oneFile);
@@ -51,7 +52,7 @@ public class UmlProject {
     				for (ClassObj c2 : visitor.allClassObj) {
 	    				String className = c2.name.toString();
 	    				//System.out.println(p.a + " " + c1.name.toString());
-	    				if(!c1.checkInterface && className.equalsIgnoreCase(p.a) && c2.checkInterface) {
+	    				if(!c1.checkInterface && className.equalsIgnoreCase(p.a)) {
 	    					//System.out.println("here");
 	    					methodCase = false;
 	    					if (!c2.addMethods.contains(c1.name.toString()))
