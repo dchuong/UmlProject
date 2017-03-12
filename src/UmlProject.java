@@ -24,6 +24,7 @@ public class UmlProject {
 	public static List<ClassObj> methodClassObj = new ArrayList<ClassObj>();
 	public static void main(String[] args) throws FileNotFoundException {
 		 
+		
         String Input = null, Output = null;
         if (args.length == 2) {
         	try {
@@ -32,50 +33,54 @@ public class UmlProject {
         	} catch (Exception e) {
         		return;
         	}
-        }
+        }        
+        // create uml for all folders
+        umlForAllFolders(Input, Output);
         
-        File[] files = new File(Input).listFiles();
+      //  umlForOneFile (Input,Output);
+	}
 
-        
-        Visitor visitor = new Visitor();
-        
-        for (File oneFile : files) {
-        	if (oneFile.getName().contains(".java")) {
+	public static void umlForOneFile (String Input, String Output) throws FileNotFoundException {
+		File[] files = new File(Input).listFiles();
+
+		Visitor visitor = new Visitor();
+
+		for (File oneFile : files) {
+			if (oneFile.getName().contains(".java")) {
 				CompilationUnit comUnit = JavaParser.parse(oneFile);
 				new Visitor.VisitClass().visit(comUnit, null);
-        	}
-        }
+			}
+		}
 
-        //method line 
-        createLine(getUmlLine.METHOD, visitor);
-        //constructor line
-        createLine(getUmlLine.CONSTRUCTOR, visitor);
-        //variable line
-        createLine(getUmlLine.VARIABLE, visitor);
-    
-        //check for java setters and getter
-        getSetterAndGetter(visitor);
-        
-        //when defining field can urn off visibility
-        String plantSyntax = "@startuml\nskinparam classAttributeIconSize 0\n";
-        plantSyntax += parser(visitor);
-        System.out.println(plantSyntax);
-        
-        //create the image
-        FileOutputStream imageOut = new FileOutputStream(Output);
-      
-        SourceStringReader reader = new SourceStringReader(plantSyntax);
-        System.out.println("\n Creating Image " + Output + "\n");
-        
-        try {
+		//method line 
+		createLine(getUmlLine.METHOD, visitor);
+		//constructor line
+		createLine(getUmlLine.CONSTRUCTOR, visitor);
+		//variable line
+		createLine(getUmlLine.VARIABLE, visitor);
+
+		//check for java setters and getter
+		getSetterAndGetter(visitor);
+
+		//when defining field can urn off visibility
+
+		String plantSyntax = "@startuml\nskinparam classAttributeIconSize 0\n";
+		plantSyntax += parser(visitor);
+		System.out.println(plantSyntax);
+
+		//create the image
+		FileOutputStream imageOut = new FileOutputStream(Output);
+
+		SourceStringReader reader = new SourceStringReader(plantSyntax);
+		System.out.println("\n Creating Image " + Output + "\n");
+
+		try {
 		 reader.generateImage(imageOut);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
-    }
-	
+	}
 	public static void createLine(getUmlLine line, Visitor visitor) {
 		if (line.equals(line.METHOD)) {
 	        //method line
@@ -333,5 +338,48 @@ public class UmlProject {
 	public static void setLine(ClassObj.Relation findRelation, ClassObj c ) {
 		findRelation.setLine("--");
 		findRelation.setClass1(c.name.toString());
+	}
+	
+	public static void umlForAllFolders(String first, String second) throws FileNotFoundException {
+		for (int i = 1; i <= 5; i++ ) {
+			String finalFirst = first + String.valueOf(i);
+			String finalSecond = second + String.valueOf(i);
+			System.out.println(finalFirst);
+			File[] files = new File(finalFirst).listFiles();
+		    Visitor visitor = new Visitor();
+		        
+	        for (File oneFile : files) {
+	        	if (oneFile.getName().contains(".java")) {
+					CompilationUnit comUnit = JavaParser.parse(oneFile);
+					new Visitor.VisitClass().visit(comUnit, null);
+	        	}
+	        }
+	    	//method line 
+			createLine(getUmlLine.METHOD, visitor);
+			//constructor line
+			createLine(getUmlLine.CONSTRUCTOR, visitor);
+			//variable line
+			createLine(getUmlLine.VARIABLE, visitor);
+
+			//check for java setters and getter
+			getSetterAndGetter(visitor);
+			
+	        String plantSyntax = "@startuml\nskinparam classAttributeIconSize 0\n";
+	        plantSyntax += parser(visitor);
+	        System.out.println(plantSyntax);
+	        
+	        //create the image
+	        FileOutputStream imageOut = new FileOutputStream(finalSecond);
+	      
+	        SourceStringReader reader = new SourceStringReader(plantSyntax);
+	        System.out.println("\nCreating Image " + finalSecond + "\n");
+	        
+	        try {
+			 reader.generateImage(imageOut);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
  }
