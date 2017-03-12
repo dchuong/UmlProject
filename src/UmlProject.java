@@ -18,8 +18,9 @@ import com.github.javaparser.utils.Pair;
 import net.sourceforge.plantuml.SourceStringReader;
 
 public class UmlProject {
-	
-	public static List<String> tempMO = new ArrayList<String>();
+	public enum getUmlLine {
+		METHOD, CONSTRUCTOR, VARIABLE;
+	}
 	public static List<ClassObj> methodClassObj = new ArrayList<ClassObj>();
 	public static void main(String[] args) throws FileNotFoundException {
 		 
@@ -44,61 +45,97 @@ public class UmlProject {
 				new Visitor.VisitClass().visit(comUnit, null);
         	}
         }
-        //method line
-        for(ClassObj c1 : visitor.allClassObj) {
-            boolean methodCase = true;
-    		for (MethodObj m: c1.methodList) {
-    			for (Pair<String, String> p : m.parameterList) {
-    				for (ClassObj c2 : visitor.allClassObj) {
-	    				String className = c2.name.toString();
-	    				//System.out.println(p.a + " " + c1.name.toString());
-	    				if(!c1.checkInterface && className.equalsIgnoreCase(p.a)) {
-	    					//System.out.println("here");
-	    					methodCase = false;
-	    					if (!c2.addMethods.contains(c1.name.toString()))
-	    						c2.addMethods.add(c1.name.toString());
-	    				//	m.addMethodObj = false;
-	    				}
-        			}
-    			}
-    			if (methodCase) {
-    				c1.realMethodList.add(m);
-    			}
-    		}
-        }
-        
+
+        //method line 
+        createLine(getUmlLine.METHOD, visitor);
         //constructor line
-        for(ClassObj c1 : visitor.allClassObj) {
-        	for (ConstructorObj cObj: c1.constructorList) {
-    			for (Pair<String, String> p : cObj.parameterList) {
-    				for (ClassObj c2: visitor.allClassObj) {
-    					String className = c2.name.toString();
-    					if (!c1.checkInterface && className.equals(p.a) ) {
-    						if (!c2.addConstructors.contains(c1.name.toString()))
-    						c2.addConstructors.add(c1.name.toString());
-    					}		
-    				}
-    			}
-        	}
-        }
-        
+        createLine(getUmlLine.CONSTRUCTOR, visitor);
         //variable line
-        for(ClassObj c1 : visitor.allClassObj) {
-        	for (String varName: c1.variableDecList ) {
-	    		for (ClassObj c2: visitor.allClassObj) {
-	    			String className = c2.name.toString();
-	    			
-    			//	System.out.println("@ "+ className + " "+ varName);
-    				if (!c1.checkInterface && className.equals(varName)) {
-    					if (!c2.addMethods.contains(c1.name.toString())) {
-    						c2.addMethods.add(c1.name.toString());
-    					}
-    				}
-    			}
-    				
-    		}
-        }
+        createLine(getUmlLine.VARIABLE, visitor);
+    
         //check for java setters and getter
+        getSetterAndGetter(visitor);
+        
+        //when defining field can urn off visibility
+        String plantSyntax = "@startuml\nskinparam classAttributeIconSize 0\n";
+        plantSyntax += parser(visitor);
+        System.out.println(plantSyntax);
+        
+        //create the image
+        FileOutputStream imageOut = new FileOutputStream(Output);
+      
+        SourceStringReader reader = new SourceStringReader(plantSyntax);
+        System.out.println("\n Creating Image " + Output + "\n");
+        
+        try {
+		 reader.generateImage(imageOut);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+    }
+	
+	public static void createLine(getUmlLine line, Visitor visitor) {
+		if (line.equals(line.METHOD)) {
+	        //method line
+	        for(ClassObj c1 : visitor.allClassObj) {
+	            boolean methodCase = true;
+	    		for (MethodObj m: c1.methodList) {
+	    			for (Pair<String, String> p : m.parameterList) {
+	    				for (ClassObj c2 : visitor.allClassObj) {
+		    				String className = c2.name.toString();
+		    				//System.out.println(p.a + " " + c1.name.toString());
+		    				if(!c1.checkInterface && className.equalsIgnoreCase(p.a)) {
+		    					//System.out.println("here");
+		    					methodCase = false;
+		    					if (!c2.addMethods.contains(c1.name.toString()))
+		    						c2.addMethods.add(c1.name.toString());
+		    				//	m.addMethodObj = false;
+		    				}
+	        			}
+	    			}
+	    			if (methodCase) {
+	    				c1.realMethodList.add(m);
+	    			}
+	    		}
+	        }
+		}
+		else if(line.equals(line.CONSTRUCTOR)) {
+		  for(ClassObj c1 : visitor.allClassObj) {
+	        	for (ConstructorObj cObj: c1.constructorList) {
+	    			for (Pair<String, String> p : cObj.parameterList) {
+	    				for (ClassObj c2: visitor.allClassObj) {
+	    					String className = c2.name.toString();
+	    					if (!c1.checkInterface && className.equals(p.a) ) {
+	    						if (!c2.addConstructors.contains(c1.name.toString()))
+	    						c2.addConstructors.add(c1.name.toString());
+	    					}		
+	    				}
+	    			}
+	        	}
+	        }
+		}
+		else if (line.equals(line.VARIABLE)) {
+		   for(ClassObj c1 : visitor.allClassObj) {
+	        	for (String varName: c1.variableDecList ) {
+		    		for (ClassObj c2: visitor.allClassObj) {
+		    			String className = c2.name.toString();
+		    			
+	    			//	System.out.println("@ "+ className + " "+ varName);
+	    				if (!c1.checkInterface && className.equals(varName)) {
+	    					if (!c2.addMethods.contains(c1.name.toString())) {
+	    						c2.addMethods.add(c1.name.toString());
+	    					}
+	    				}
+	    			}
+	    				
+	    		}
+	        }
+		}
+	}
+	
+	public static void getSetterAndGetter(Visitor visitor) {
         MethodObj removeMethod;
         for(ClassObj c1 : visitor.allClassObj) {
         	for (String getName: c1.getMethods) {
@@ -127,26 +164,8 @@ public class UmlProject {
 				}
         	}
         }
-        //when defining field can urn off visibility
-        String plantSyntax = "@startuml\nskinparam classAttributeIconSize 0\n";
-        plantSyntax += parser(visitor);
-        System.out.println(plantSyntax);
-        
-        //create the image
-        FileOutputStream imageOut = new FileOutputStream(Output);
-      
-        SourceStringReader reader = new SourceStringReader(plantSyntax);
-        System.out.println("\n Creating Image " + Output + "\n");
-        
-        try {
-		 reader.generateImage(imageOut);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	
-    }
-	
+		
+	}
 	public static String parser(Visitor v) {
 		String t = "";
 		List<String> onlyClasses = new ArrayList<String>();
