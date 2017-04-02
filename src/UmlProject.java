@@ -62,7 +62,7 @@ public class UmlProject {
 		//check for java setters and getter
 		getSetterAndGetter(visitor);
 
-		//when defining field can urn off visibility
+		//when defining field can turn off visibility
 
 		String plantSyntax = "@startuml\nskinparam classAttributeIconSize 0\n";
 		plantSyntax += parser(visitor);
@@ -342,6 +342,7 @@ public class UmlProject {
 	
 	public static void umlForAllFolders(String first, String second) throws FileNotFoundException {
 		for (int i = 1; i <= 5; i++ ) {
+			
 			String finalFirst = first + String.valueOf(i);
 			String finalSecond = second + String.valueOf(i);
 			System.out.println(finalFirst);
@@ -368,6 +369,8 @@ public class UmlProject {
 	        plantSyntax += parser(visitor);
 	        System.out.println(plantSyntax);
 	        
+	        UnitTests assertionTests = new UnitTests(plantSyntax,i);
+	        assertionTests.testAll();
 	        //create the image
 	        FileOutputStream imageOut = new FileOutputStream(finalSecond);
 	      
