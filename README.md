@@ -9,7 +9,9 @@ Having trouble with changing the pom to have a short jar name
 
 # Third party tools
 JavaParser - Parse the java files.
+
 PlantUml - create uml diagrams from plain text
+
 Junits - thinking of adding in the future to check work without looking at images
 
 # 3/11 
