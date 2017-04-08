@@ -1,5 +1,7 @@
 # UmlProject
-
+Command line in Mac
+1. mvn package in project folder
+2. java -jar umlparser-0.0.1-SNAPSHOT-jar-with-dependencies.jar <FileName> <FileOutput>
 # Third party tools
 JavaParser, PlantUml, and Junits
 
