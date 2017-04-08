@@ -1,3 +1,5 @@
+package com.derrick;
+
 import org.junit.Test;
 import static org.junit.Assert.*;
 

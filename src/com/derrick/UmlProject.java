@@ -1,3 +1,5 @@
+package com.derrick;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,6 +24,7 @@ public class UmlProject {
 		METHOD, CONSTRUCTOR, VARIABLE;
 	}
 	public static List<ClassObj> methodClassObj = new ArrayList<ClassObj>();
+	
 	public static void main(String[] args) throws FileNotFoundException {
 		 
 		

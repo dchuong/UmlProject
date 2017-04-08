@@ -1,3 +1,5 @@
+package com.derrick;
+
 import java.util.EnumSet;
 import com.github.javaparser.ast.Modifier;
 
