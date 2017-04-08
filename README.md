@@ -8,11 +8,11 @@ java -jar umlparser-0.0.1-SNAPSHOT-jar-with-dependencies.jar /Users/Derrick/Desk
 Having trouble with changing the pom to have a short jar name
 
 # Third party tools
-JavaParser - Parse the java files.
+JavaParser - Parse the java files @https://github.com/javaparser/javaparser.
 
-PlantUml - create uml diagrams from plain text
+PlantUml - Create uml diagrams from plain text @http://plantuml.com/.
 
-Junits - thinking of adding in the future to check work without looking at images
+Junits - Thinking of adding in the future to check work without looking at images
 
 # 3/11 
 Looking into implementing unit case to prevent having to look at images. 
