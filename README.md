@@ -17,6 +17,8 @@ Looking into implementing unit case to prevent having to look at images.
 
 # 4/1
 Sequence diagrams and executing program in command line. Having trouble with configuring with right pom.xml
+
 Having trouble with changing the pom to have a shorter jar name.
+
 Had trouble with pom detecting the main manifest and finding the dependencies.
 
