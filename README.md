@@ -1,5 +1,5 @@
 # UmlProject
-Working Command line in Mac
+Working Command line in Mac OS X
 1. mvn package in project folder
 2. java -jar umlparser-0.0.1-SNAPSHOT-jar-with-dependencies.jar FileName FileOutput
 
@@ -33,4 +33,3 @@ Sequence diagrams and executing program in command line. Having trouble with con
 Having trouble with changing the pom to have a shorter jar name.
 
 Had trouble with pom detecting the main manifest and finding the dependencies.
-
