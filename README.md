@@ -33,3 +33,6 @@ Sequence diagrams and executing program in command line. Having trouble with con
 Having trouble with changing the pom to have a shorter jar name.
 
 Had trouble with pom detecting the main manifest and finding the dependencies.
+
+# JAR
+The pom creates two jar files. One with the dependencies and one without the dependencies. The jar with the dependencies can execute because it has the JavaParser, PlantUml, and Junits.
