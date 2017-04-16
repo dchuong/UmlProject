@@ -7,7 +7,7 @@ FileName is a path string to the source folder.
 
 Ex - /Users/Derrick/Desktop/umlparser/uml-parser-test-1 
 
-FileOutput is a path string to output the image. Doesn't need to specify extension. 
+FileOutput is a path string to output the image. Don't need to specify extension. 
 
 Ex - /Users/Derrick/Desktop/umltest/test1
 
