@@ -38,9 +38,9 @@ public class UmlProject {
         	}
         }        
         // create uml for all folders
-        umlForAllFolders(Input, Output);
+       // umlForAllFolders(Input, Output);
         
-      //  umlForOneFile (Input,Output);
+        umlForOneFile (Input,Output);
 	}
 
 	public static void umlForOneFile (String Input, String Output) throws FileNotFoundException {
@@ -373,7 +373,7 @@ public class UmlProject {
 	        System.out.println(plantSyntax);
 	        
 	        UnitTests assertionTests = new UnitTests(plantSyntax,i);
-	        assertionTests.testAll();
+	        
 	        //create the image
 	        FileOutputStream imageOut = new FileOutputStream(finalSecond);
 	      

@@ -12,7 +12,9 @@ public class UnitTests {
 	private String plantuml;
 	private int fileNumber;
 	private String[] classBreak;
+	
 	UnitTests(String plantuml, int fileNumber) {
+		System.out.println("Unit Tests");
 		//plantuml = plantuml.replaceAll("\\s", "");
 		plantuml = plantuml.replace("@startuml\nskinparam classAttributeIconSize 0", "");
 		
@@ -32,20 +34,25 @@ public class UnitTests {
 			System.out.println(className);
 		}
 		
+		List<String> classMatches = new ArrayList<String>();
 		while (innerM.find()) {
+			classMatches.add(innerM.group());
 			System.out.println(innerM.group());
 		}
-
 		this.plantuml = plantuml;
 		this.fileNumber = fileNumber;
+		
+		testPlant1(classMatches);
 	}
 	
-	@Test 
+	/*
+	@Test
 	public void testAll() {
 		this.testPlant1();
 	}
+	*/
 	@Test
-	public void testPlant1() {
+	public void testPlant1(List<String> classMatches) {
 		/*
 		for (String c: classBreak) {
 			System.out.println(c);
@@ -55,6 +62,7 @@ public class UnitTests {
 		switch (fileNumber) {
 		case 1:
 			//System.out.println(plantuml);
+			
 			break;
 		}
 	}
