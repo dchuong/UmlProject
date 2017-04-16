@@ -15,7 +15,7 @@ Full example
 
 java -jar umlparser-0.0.1-SNAPSHOT-jar-with-dependencies.jar /Users/Derrick/Desktop/umlparser/uml-parser-test-1 /Users/Derrick/Desktop/umltest/test1
 
-
+Having trouble with changing the pom to have a shorter jar name.
 
 # Third party tools
 JavaParser - Parse the java files https://github.com/javaparser/javaparser.
@@ -28,9 +28,7 @@ Junits - Thinking of adding in the future to check work without looking at image
 Looking into implementing unit case to prevent having to look at images. 
 
 # 4/1
-Sequence diagrams and executing program in command line. Having trouble with configuring with right pom.xml
-
-Having trouble with changing the pom to have a shorter jar name.
+Sequence diagrams and executing program in command line.
 
 Had trouble with pom detecting the main manifest and finding the dependencies.
 
