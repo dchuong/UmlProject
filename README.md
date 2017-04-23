@@ -22,8 +22,6 @@ JavaParser - Parse the java files https://github.com/javaparser/javaparser.
 
 PlantUml - Create uml diagrams from plain text http://plantuml.com/.
 
-Junits - Thinking of adding in the future to check work without looking at images
-
 # 3/11 
 Looking into implementing unit case to prevent having to look at images. 
 
