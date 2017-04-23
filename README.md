@@ -30,7 +30,7 @@ Sequence diagrams and executing program in command line.
 
 Had trouble with pom detecting the main manifest and finding the dependencies.
 
-#4/22
+# 4/22
 
 Fixed the pom.xml
 # JAR
