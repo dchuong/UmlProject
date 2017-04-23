@@ -30,5 +30,8 @@ Sequence diagrams and executing program in command line.
 
 Had trouble with pom detecting the main manifest and finding the dependencies.
 
+#4/22
+
+Fixed the pom.xml
 # JAR
 The pom creates two jar files. One with the dependencies and one without the dependencies. The jar with the dependencies can execute because it has the JavaParser, PlantUml, and Junits.
