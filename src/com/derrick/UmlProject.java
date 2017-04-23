@@ -26,8 +26,6 @@ public class UmlProject {
 	public static List<ClassObj> methodClassObj = new ArrayList<ClassObj>();
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		 
-		
         String Input = null, Output = null;
         if (args.length == 2) {
         	try {
@@ -77,6 +75,7 @@ public class UmlProject {
 		SourceStringReader reader = new SourceStringReader(plantSyntax);
 		System.out.println("\n Creating Image " + Output + "\n");
 
+		
 		try {
 		 reader.generateImage(imageOut);
 		} catch (IOException e) {
@@ -84,6 +83,7 @@ public class UmlProject {
 			e.printStackTrace();
 		}
 	}
+	//relations
 	public static void createLine(getUmlLine line, Visitor visitor) {
 		if (line.equals(line.METHOD)) {
 	        //method line
